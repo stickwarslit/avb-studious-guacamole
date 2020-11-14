@@ -1,13 +1,14 @@
 import React from 'react'
+import { useContact } from './context/Contact'
 import './ContactsList.scss'
 import { Contact } from './data/contacts'
 
 interface Props {
-  contacts: Contact[]
   onClick: (contact: Contact) => any
 }
 
-export default function ContactsList({ contacts, onClick }:Props) {
+export default function ContactsList({ onClick }:Props) {
+  const { contacts } = useContact()
   const listItems = contacts.map(
     (contact) => 
       <li key={contact.id} onClick={() => {onClick(contact)}}>

@@ -1,52 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import './App.scss'
-import { Contact, getPage} from './data/contacts'
+import { Contact } from './data/contacts'
+import { ContactContextProvider, useContact } from './context/Contact'
 import ContactsList from './ContactsList'
 import ContactDisplay from './ContactDisplay'
 
-function updateContact(contacts: Contact[], updated: Contact): Contact[] {
-  return contacts.map(contact => {
-    if (contact.id === updated.id) {
-      return updated
-    } else {
-      return contact
-    }
-  })
+function App() {
+  return (
+    <ContactContextProvider><Body/></ContactContextProvider>
+  )
 }
 
-function App() {
-  const [contacts, setContacts] = useState<Contact[]>([])
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
+function Body() {
+  const {contacts, fetchMoreContacts} = useContact()
 
+  const [contactId, setContactId] = useState<number | null>(null)
+  const [contact, setContact] = useState<Contact | null>(null)
+
+  // Fetch first page of contacts on page load
   useEffect(() => {
-    const getContacts = async () => {
-      const contacts = await getPage()
-      setContacts(contacts)
-    }
-    getContacts()
+    fetchMoreContacts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onSave = (contact: Contact): void => {
-    const updateServer = async () => {
-      const newContacts = updateContact(contacts, contact)
-      setContacts(newContacts)
+  useEffect(() => {
+    const result = contacts.find(({id}) => id === contactId)
+    if (result !== undefined) {
+      setContact(result)
     }
-    updateServer()
-  }
+  }, [contacts, contactId])
 
   return (
     <>
       <div className="sidebar">
         <h1>Contacts</h1>
-        { contacts.length > 0
-          ? <ContactsList contacts={contacts} onClick={setSelectedContact} />
-          : <div>Loading contacts</div>
-        }
+        <ContactsList onClick={ ({id}) => setContactId(id) }/>
       </div>
       <div className="content">
-        { selectedContact
-          ? <ContactDisplay contact={selectedContact} onSave={onSave}/>
-          : <div>Please select a contact in the left</div>
+        {
+          contact
+            ? <ContactDisplay contact={contact}/>
+            : <div>Select contact on left</div>
         }
       </div>
     </>

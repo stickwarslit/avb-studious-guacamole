@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { Contact, update as sendUpdateRequest } from './data/contacts'
+import { Contact  } from './data/contacts'
+import { useContact } from './context/Contact'
 
 interface Props {
   contact: Contact
-  onSave: (contact: Contact) => void
 }
 
-export default function ContactsDisplay({contact, onSave}: Props) {
-  const [message, setMessage] = useState("")
+export default function ContactsDisplay({contact}: Props) {
+  const { updateContact } = useContact()
+
   const [firstName, setFirstName] = useState(contact.firstName)
   const [lastName, setLastName] = useState(contact.lastName)
+  const [message, setMessage] = useState("")
 
   // Change display firstName and lastName when contact changes
   useEffect(() => {
-    setFirstName(contact.firstName)
-    setLastName(contact.lastName)
+    if (contact != null) {
+      setFirstName(contact.firstName)
+      setLastName(contact.lastName)
+    }
   }, [contact])
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)
@@ -28,7 +32,7 @@ export default function ContactsDisplay({contact, onSave}: Props) {
       lastName
     }
 
-    await sendUpdateRequest(updatedContact)
+    await updateContact(updatedContact)
 
     setMessage("Saved Successfully")
 
