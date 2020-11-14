@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import './App.scss'
-import { Contact, getPage } from './data/contacts'
+import { Contact, getPage} from './data/contacts'
 import ContactsList from './ContactsList'
 import ContactDisplay from './ContactDisplay'
+
+function updateContact(contacts: Contact[], updated: Contact): Contact[] {
+  return contacts.map(contact => {
+    if (contact.id === updated.id) {
+      return updated
+    } else {
+      return contact
+    }
+  })
+}
 
 function App() {
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -16,6 +26,14 @@ function App() {
     getContacts()
   }, [])
 
+  const onSave = (contact: Contact): void => {
+    const updateServer = async () => {
+      const newContacts = updateContact(contacts, contact)
+      setContacts(newContacts)
+    }
+    updateServer()
+  }
+
   return (
     <>
       <div className="sidebar">
@@ -27,7 +45,7 @@ function App() {
       </div>
       <div className="content">
         { selectedContact
-          ? <ContactDisplay contact={selectedContact} />
+          ? <ContactDisplay contact={selectedContact} onSave={onSave}/>
           : <div>Please select a contact in the left</div>
         }
       </div>

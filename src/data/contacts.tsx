@@ -19,3 +19,22 @@ export const getPage = async (pageNum = 1, pageSize = 20): Promise<Contact[]> =>
 
   return body.contacts as Contact[]
 }
+
+export const update = async (contact: Contact): Promise<void> => {
+  const url = `${BASE_URL}/contacts/${contact.id}`
+
+  const params = {
+    method: 'PUT',
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(contact)
+  }
+
+  const response = await fetch(url, params)
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+}
