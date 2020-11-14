@@ -4,12 +4,15 @@ import { Contact } from './data/contacts'
 
 interface Props {
   contacts: Contact[]
+  onClick: (contact: Contact) => any
 }
 
-export default function ContactsList({ contacts }:Props) {
+export default function ContactsList({ contacts, onClick }:Props) {
   const listItems = contacts.map(
-    ({id, firstName, lastName}) => 
-      <li key={id}>{firstName} {lastName}</li>
+    (contact) => 
+      <li key={contact.id} onClick={() => {onClick(contact)}}>
+        {contact.firstName} {contact.lastName}
+      </li>
   )
   return (
     <ul className="contacts-list">
