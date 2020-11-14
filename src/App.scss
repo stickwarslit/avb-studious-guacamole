@@ -1,0 +1,21 @@
+body {
+  height: 100vh;
+}
+#root {
+  display: grid;
+  height: 100%;
+
+  grid-template-rows: 1fr;
+  grid-template-columns: 100pt 1fr;
+  grid-template-areas:
+    "sidebar content";
+
+  .sidebar {
+    grid-area: sidebar;
+  }
+
+  .content {
+    grid-area: content;
+  }
+
+}
