@@ -17,6 +17,7 @@ function App() {
   return (
     <>
       <div className="sidebar">
+        <h1>Contacts</h1>
         { contacts.length > 0
           ? <ContactsList contacts={contacts} />
           : <div>Loading contacts</div>

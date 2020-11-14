@@ -1,4 +1,5 @@
 import React from 'react'
+import './ContactsList.scss'
 import { Contact } from './data/contacts'
 
 interface Props {

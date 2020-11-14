@@ -1,0 +1,9 @@
+.contacts-list {
+  list-style: none;
+  padding: 0;
+
+  > li {
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+}
