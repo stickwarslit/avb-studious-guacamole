@@ -4,6 +4,7 @@ body {
 #root {
   display: grid;
   height: 100%;
+  background: #FFFFFF;
 
   grid-template-rows: 1fr;
   grid-template-columns: 100pt 1fr;
@@ -12,6 +13,7 @@ body {
 
   .sidebar {
     grid-area: sidebar;
+    background: #F8FAFF;
   }
 
   .content {
