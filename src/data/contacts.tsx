@@ -40,6 +40,10 @@ export const update = async (contact: Contact): Promise<void> => {
 }
 
 export const del = async (contact: Contact): Promise<void> => {
+  if (isNaN(contact.id)) {
+    return
+  }
+
   const url = `${BASE_URL}/contacts/${contact.id}`
 
   const params = { method: 'DELETE' }
@@ -49,4 +53,27 @@ export const del = async (contact: Contact): Promise<void> => {
   if (!response.ok) {
     throw new Error(response.statusText)
   }
+}
+
+export const create = async (contact: Contact): Promise<Contact> => {
+  const url = `${BASE_URL}/contacts`
+
+  const params = {
+    method: 'POST',
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(contact)
+  }
+
+  const response = await fetch(url, params)
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+
+  const updatedContact = await response.json()
+
+  return updatedContact as Contact
 }

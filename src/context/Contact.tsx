@@ -2,6 +2,7 @@ import React, {useState, createContext, useContext} from 'react'
 import { 
   Contact, 
   getPage, 
+  create as createRequest,
   update as updateRequest,
   del as deleteRequest
 } from '../data/contacts'
@@ -12,7 +13,7 @@ export type ContactContextType = {
   setContactState: (contacts: Contact[]) => void,
   fetchMoreContacts: () => Promise<void>,
   deleteContact: (contact: Contact) => Promise<void>,
-  updateContact: (contact: Contact) => Promise<void>
+  upsertContact: (contact: Contact) => Promise<void>
 }
 
 const contextDefault: ContactContextType = {
@@ -21,7 +22,7 @@ const contextDefault: ContactContextType = {
   setContactState: () => {},
   fetchMoreContacts: async () => {},
   deleteContact: async () => {},
-  updateContact: async () => {}
+  upsertContact: async () => {}
 }
 
 export const ContactContext = createContext<ContactContextType>(contextDefault)
@@ -56,13 +57,26 @@ export const ContactContextProvider = (props: Props) => {
     setContacts(updatedContacts)
   }
 
+  const createContact = async (contact: Contact) => {
+    const responseContact = await createRequest(contact)
+    setContacts(contacts.concat(responseContact))
+  }
+
+  const upsertContact = async (contact: Contact) => {
+    if (isNaN(contact.id)) {
+      await createContact(contact)
+    } else {
+      await updateContact(contact)
+    }
+  }
+
   const contextValue: ContactContextType = {
     contacts,
     lastPage: page,
     setContactState: setContacts,
     fetchMoreContacts,
     deleteContact,
-    updateContact
+    upsertContact
   }
 
   return (

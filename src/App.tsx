@@ -32,10 +32,22 @@ function Body() {
     }
   }, [contacts, contactId])
 
+  const onCreate = () => {
+    const newContact = {
+      id: NaN,
+      firstName: "",
+      lastName: "",
+      emails: []
+    }
+
+    setContact(newContact)
+  }
+
   return (
     <>
       <div className="sidebar">
         <h1>Contacts</h1>
+        <button onClick={onCreate}>Create</button>
         <ContactsList onClick={ ({id}) => setContactId(id) }/>
       </div>
       <div className="content">

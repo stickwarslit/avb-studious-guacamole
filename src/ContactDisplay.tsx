@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function ContactsDisplay({contact, onDelete}: Props) {
-  const { updateContact, deleteContact } = useContact()
+  const { upsertContact, deleteContact } = useContact()
 
   const [firstName, setFirstName] = useState(contact.firstName)
   const [lastName, setLastName] = useState(contact.lastName)
@@ -57,6 +57,16 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
   }
 
   const handleSave = async () => {
+    if (firstName === "") {
+      setMessage("Must have First Name")
+      return
+    }
+
+    if (lastName === "") {
+      setMessage("Must have Last Name")
+      return
+    }
+
     const updatedContact: Contact = {
       ...contact,
       firstName,
@@ -64,7 +74,7 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
       emails
     }
 
-    await updateContact(updatedContact)
+    await upsertContact(updatedContact)
 
     setMessage("Saved Successfully")
   }
