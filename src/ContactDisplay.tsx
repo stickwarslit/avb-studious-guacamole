@@ -11,13 +11,16 @@ export default function ContactsDisplay({contact}: Props) {
 
   const [firstName, setFirstName] = useState(contact.firstName)
   const [lastName, setLastName] = useState(contact.lastName)
+  const [emails, setEmails] = useState(contact.emails)
+
   const [message, setMessage] = useState("")
 
-  // Change display firstName and lastName when contact changes
+  // Change contact display info when contact changes
   useEffect(() => {
     if (contact != null) {
       setFirstName(contact.firstName)
       setLastName(contact.lastName)
+      setEmails(contact.emails)
     }
   }, [contact])
 
@@ -40,10 +43,17 @@ export default function ContactsDisplay({contact}: Props) {
 
   return (
     <article className="contact-display">
-        <label>First Name: <input type="text" value={firstName} onChange={handleFirstNameChange}/></label>
-        <label>Last Name: <input type="text" value={lastName} onChange={handleLastNameChange}/></label>
+      <label>First Name: <input type="text" value={firstName} onChange={handleFirstNameChange}/></label>
+      <label>Last Name: <input type="text" value={lastName} onChange={handleLastNameChange}/></label>
 
-        <button onClick={handleSave}>Save</button>
+      <label>Emails</label>
+      <ul>
+        {
+          emails.map(email => <li key="email">{email}</li>)
+        }
+      </ul>
+
+      <button onClick={handleSave}>Save</button>
 
       <div className="contact-message">
         {message}
