@@ -48,6 +48,10 @@ export default function ContactsDisplay({contact}: Props) {
     }
   }
 
+  const removeEmail = (emailToDelete: string) => {
+    setEmails(emails.filter(email => email !== emailToDelete))
+  }
+
   const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     const updatedContact: Contact = {
@@ -73,7 +77,10 @@ export default function ContactsDisplay({contact}: Props) {
       <label>Emails</label>
       <ul>
         { emails.map(email => 
-          <li key={email}>{email}</li>
+          <li key={email}>
+            {email}
+            <button onClick={() => removeEmail(email)}>Remove</button>
+          </li>
         )}
         <li>
         { isAddingEmail
