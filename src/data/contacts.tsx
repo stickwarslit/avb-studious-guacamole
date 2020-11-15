@@ -38,3 +38,15 @@ export const update = async (contact: Contact): Promise<void> => {
     throw new Error(response.statusText)
   }
 }
+
+export const del = async (contact: Contact): Promise<void> => {
+  const url = `${BASE_URL}/contacts/${contact.id}`
+
+  const params = { method: 'DELETE' }
+
+  const response = await fetch(url, params)
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+}

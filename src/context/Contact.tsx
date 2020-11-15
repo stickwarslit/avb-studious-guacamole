@@ -1,5 +1,10 @@
 import React, {useState, createContext, useContext} from 'react'
-import { Contact, getPage, update } from '../data/contacts'
+import { 
+  Contact, 
+  getPage, 
+  update as updateRequest,
+  del as deleteRequest
+} from '../data/contacts'
 
 export type ContactContextType = {
   contacts: Contact[],
@@ -35,10 +40,14 @@ export const ContactContextProvider = (props: Props) => {
     setContacts(contacts.concat(newContacts))
   }
 
-  const deleteContact = async () => {}
+  const deleteContact = async (contactToDelete: Contact) => {
+    await deleteRequest(contactToDelete)
+    const updatedContacts = contacts.filter(({id}) => id !== contactToDelete.id)
+    setContacts(updatedContacts)
+  }
 
   const updateContact = async (updated: Contact) => {
-    await update(updated)
+    await updateRequest(updated)
     const updatedContacts = contacts.map((contact) =>  {
       return contact.id === updated.id
         ? updated

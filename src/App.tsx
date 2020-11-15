@@ -27,6 +27,8 @@ function Body() {
     const result = contacts.find(({id}) => id === contactId)
     if (result !== undefined) {
       setContact(result)
+    } else {
+      setContact(null)
     }
   }, [contacts, contactId])
 
@@ -39,7 +41,10 @@ function Body() {
       <div className="content">
         {
           contact
-            ? <ContactDisplay contact={contact}/>
+            ? <ContactDisplay 
+                contact={contact} 
+                onDelete={() => setContactId(null)}
+              />
             : <div>Select contact on left</div>
         }
       </div>

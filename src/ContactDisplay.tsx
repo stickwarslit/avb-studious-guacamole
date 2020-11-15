@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Contact  } from './data/contacts'
 import { useContact } from './context/Contact'
 
-interface Props {
-  contact: Contact
-}
 
 // Copied from http://emailregex.com/
 const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
@@ -13,9 +10,13 @@ const isValidEmail = (email: string): boolean => {
   return EMAIL_REGEX.test(email)
 }
 
+interface Props {
+  contact: Contact
+  onDelete: (contact: Contact) => void
+}
 
-export default function ContactsDisplay({contact}: Props) {
-  const { updateContact } = useContact()
+export default function ContactsDisplay({contact, onDelete}: Props) {
+  const { updateContact, deleteContact } = useContact()
 
   const [firstName, setFirstName] = useState(contact.firstName)
   const [lastName, setLastName] = useState(contact.lastName)
@@ -25,14 +26,16 @@ export default function ContactsDisplay({contact}: Props) {
   const [newEmail, setNewEmail] = useState("")
   const [message, setMessage] = useState("")
 
-  // Change contact display info when contact changes
-  useEffect(() => {
+  const refreshContactInfo = () => {
     if (contact != null) {
       setFirstName(contact.firstName)
       setLastName(contact.lastName)
       setEmails(contact.emails)
     }
-  }, [contact])
+  }
+
+  // Change contact display info when contact changes
+  useEffect(refreshContactInfo, [contact])
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)
@@ -52,8 +55,7 @@ export default function ContactsDisplay({contact}: Props) {
     setEmails(emails.filter(email => email !== emailToDelete))
   }
 
-  const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
+  const handleSave = async () => {
     const updatedContact: Contact = {
       ...contact,
       firstName,
@@ -64,7 +66,11 @@ export default function ContactsDisplay({contact}: Props) {
     await updateContact(updatedContact)
 
     setMessage("Saved Successfully")
+  }
 
+  const handleDelete = async () => {
+    await deleteContact(contact)
+    onDelete(contact)
   }
 
   return (
@@ -98,7 +104,11 @@ export default function ContactsDisplay({contact}: Props) {
         </li>
       </ul>
 
-      <button onClick={handleSave}>Save</button>
+      <div className="buttons">
+        <button onClick={handleDelete}>Delete</button>
+        <button onClick={refreshContactInfo}>Cancel</button>
+        <button onClick={handleSave}>Save</button>
+      </div>
 
       <div className="contact-message">
         {message}
