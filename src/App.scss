@@ -4,7 +4,6 @@
   font-family: Lato;
 }
 body {
-  height: 100vh;
 }
 #root {
   display: grid;
@@ -20,6 +19,8 @@ body {
     grid-area: sidebar;
     background: #F8FAFF;
 
+    height: 100vh;
+
     h1 {
       font-weight: normal;
       padding-top: 10%;
@@ -34,6 +35,8 @@ body {
 
   .content {
     grid-area: content;
+
+    height: 100vh;
   }
 
 }
