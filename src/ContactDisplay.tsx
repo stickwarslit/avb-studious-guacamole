@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Contact } from './data/contacts'
 import { useContact } from './context/Contact'
 import PlusButton from './PlusButton'
+import MinusButton from './MinusButton'
 import './ContactDisplay.scss'
 
 // Copied from https://ihateregex.io/expr/email/
@@ -105,12 +106,10 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
           { emails.map(email => 
             <li key={email}>
               <div>{email}</div>
-              <button 
-                className="remove" 
-                onClick={() => removeEmail(email)}
-              >
-                Remove
-              </button>
+              <MinusButton 
+                onClick={() => removeEmail(email)} 
+                className="remove"
+              />
             </li>
           )}
           { isAddingEmail
