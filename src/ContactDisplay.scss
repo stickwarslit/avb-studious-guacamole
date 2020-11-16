@@ -101,12 +101,21 @@
   .buttons {
     grid-area: buttons;
 
+    display: grid;
+    grid-template:
+      "delete space cancel save"
+      / 1fr 3fr 1fr 1fr;
+
+    justify-items: center;
+    align-items: center;
+    
+
     padding: 3%;
 
     button {
       background: none;
       border: none;
-      width: 13%;
+      width: 80%;
       margin-left: 5%;
       border-style: solid;
       border-width: 1px;
@@ -116,16 +125,22 @@
       cursor: pointer;
 
       &.delete {
+        grid-area: delete;
+
         background: #FF5757;
         border-color: #FF5757;
         color: #FFFFFF;
       }
 
       &.cancel {
+        grid-area: cancel;
+
         border-color: #579AFF;
       }
 
       &.save {
+        grid-area: save;
+
         background: #579AFF;
         border-color: #579AFF;
         color: #FFFFFF;
