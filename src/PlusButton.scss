@@ -1,0 +1,61 @@
+.plus-button {
+  border: 0;
+  padding: 0;
+
+  background: #579AFF;
+
+  border-radius: 50%;
+
+  position: relative;
+
+  cursor: pointer;
+
+  .vertical-bar, .horizontal-bar {
+    display: block;
+    background: #FFFFFF;
+    position: absolute;
+  }
+
+  &.large {
+    width: 32px;
+    height: 32px;
+
+    .vertical-bar {
+      width: 2px;
+      height: 24px;
+
+      left: 15px;
+      top: 4px;
+    }
+
+    .horizontal-bar {
+      height: 2px;
+      width: 24px;
+
+      top: 15px;
+      left: 4px;
+    }
+  }
+
+  &.small {
+    width: 24px;
+    height: 24px;
+
+    .vertical-bar {
+      width: 1.5px;
+      height: 18px;
+
+      left: 11.25px;
+      top: 3px;
+    }
+
+    .horizontal-bar {
+      height: 1.5px;
+      width: 18px;
+
+      top: 11.25px;
+      left: 3px;
+    }
+  }
+}
+

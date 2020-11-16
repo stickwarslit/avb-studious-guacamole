@@ -4,6 +4,7 @@ import { Contact } from './data/contacts'
 import { ContactContextProvider, useContact } from './context/Contact'
 import ContactsList from './ContactsList'
 import ContactDisplay from './ContactDisplay'
+import PlusButton from './PlusButton'
 
 function App() {
   return (
@@ -46,8 +47,10 @@ function Body() {
   return (
     <>
       <div className="sidebar">
-        <h1>Contacts</h1>
-        <button onClick={onCreate}>Create</button>
+        <h1>
+          Contacts
+          <PlusButton onClick={onCreate} size="large" />
+        </h1>
         <ContactsList onClick={ ({id}) => setContactId(id) }/>
       </div>
       <div className="content">

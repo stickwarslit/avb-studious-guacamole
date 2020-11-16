@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Contact  } from './data/contacts'
+import { Contact } from './data/contacts'
 import { useContact } from './context/Contact'
+import PlusButton from './PlusButton'
 
 
 // Copied from https://ihateregex.io/expr/email/
@@ -107,6 +108,7 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
                 <button onClick={completeNewEmail}>Complete</button>
               </>
             : <>
+                <PlusButton onClick={() => setAddingEmail(true)} size="small" />
                 <button onClick={() => setAddingEmail(true)}>
                   add email
                 </button>
