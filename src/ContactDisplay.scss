@@ -1,7 +1,7 @@
 .contact-display {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 2fr 4fr 1fr 2fr;
+  grid-template-rows: 1fr 1fr 4fr 1fr 2fr;
 
   grid-template-areas:
     "space space"
@@ -11,6 +11,16 @@
     "buttons buttons";
 
   height: 100%;
+
+  input[type="text"] {
+    background: #F9FBFF;
+    border: 1px solid #D7E7FF;
+    padding: 8px;
+  }
+
+  label {
+    font-size: 70%;
+  }
 
   .first-name {
     grid-area: firstName;
@@ -35,6 +45,8 @@
       padding: 0;
       li {
         padding: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
         button.remove {
           display: none;
@@ -58,6 +70,20 @@
             &:hover {
               text-decoration: underline;
             }
+          }
+        }
+
+        &.add-email-form {
+          button {
+            margin-left: 2%;
+            background: none;
+            border-color: #579AFF;
+            border-style: solid;
+            border-width: 1px;
+
+            line-height: 200%;
+
+            width: 13%;
           }
         }
       }

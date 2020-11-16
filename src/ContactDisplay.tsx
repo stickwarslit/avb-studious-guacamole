@@ -32,6 +32,8 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
       setFirstName(contact.firstName)
       setLastName(contact.lastName)
       setEmails(contact.emails)
+      setNewEmail("")
+      setAddingEmail(false)
     }
   }
 
@@ -112,7 +114,7 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
             </li>
           )}
           { isAddingEmail
-              ? <li>
+              ? <li className="add-email-form">
                   <label>New Email: </label> 
                   <input 
                     type="text" 
