@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useContact } from './context/Contact'
 import './ContactsList.scss'
 import { Contact } from './data/contacts'
@@ -8,16 +8,39 @@ interface Props {
 }
 
 export default function ContactsList({ onClick }:Props) {
-  const { contacts } = useContact()
+  const { contacts, fetchMoreContacts, canLoadMore } = useContact()
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleLoad = async () => {
+    setIsLoading(true)
+    await fetchMoreContacts()
+    setIsLoading(false)
+  }
+
   const listItems = contacts.map(
     (contact) => 
       <li key={contact.id} onClick={() => {onClick(contact)}}>
         {contact.firstName} {contact.lastName}
       </li>
   )
+
+  const loadButton = 
+    canLoadMore
+      ? <li>
+          {
+            isLoading
+              ? "Loading..."
+              : <button onClick={handleLoad}>Load more</button>
+          }
+        </li>
+      : ""
+
   return (
     <ul className="contacts-list">
       {listItems}
+      {loadButton}
     </ul>
+
   )
 }

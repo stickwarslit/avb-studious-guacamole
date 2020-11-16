@@ -5,9 +5,16 @@ export interface Contact {
   emails: Array<string>
 }
 
+export interface Page {
+  contacts: Contact[]
+  page: number
+  itemsPerPage: 20
+  totalItems: 17
+}
+
 const BASE_URL = "https://avb-contacts-api.herokuapp.com"
 
-export const getPage = async (pageNum = 1, pageSize = 20): Promise<Contact[]> => {
+export const getPage = async (pageNum = 1, pageSize = 20): Promise<Page> => {
   const url = `${BASE_URL}/contacts/paginated?page=${pageNum}&itemsPerPage=${pageSize}`
   const response = await fetch(url)
 
@@ -17,7 +24,7 @@ export const getPage = async (pageNum = 1, pageSize = 20): Promise<Contact[]> =>
 
   const body = await response.json()
 
-  return body.contacts as Contact[]
+  return body as Page
 }
 
 export const update = async (contact: Contact): Promise<void> => {

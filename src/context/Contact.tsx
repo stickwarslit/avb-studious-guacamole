@@ -10,6 +10,7 @@ import {
 export type ContactContextType = {
   contacts: Contact[],
   lastPage: number,
+  canLoadMore: boolean,
   setContactState: (contacts: Contact[]) => void,
   fetchMoreContacts: () => Promise<void>,
   deleteContact: (contact: Contact) => Promise<void>,
@@ -19,6 +20,7 @@ export type ContactContextType = {
 const contextDefault: ContactContextType = {
   contacts: [],
   lastPage: 1,
+  canLoadMore: true,
   setContactState: () => {},
   fetchMoreContacts: async () => {},
   deleteContact: async () => {},
@@ -32,13 +34,15 @@ interface Props {
 }
 
 export const ContactContextProvider = (props: Props) => {
-  const [page, setPage] = useState(1)
+  const [pageNum, setPageNum] = useState(1)
+  const [canLoadMore, setCanLoadMore] = useState(true)
   const [contacts, setContacts] = useState<Contact[]>([])
 
   const fetchMoreContacts = async () => {
-    const newContacts = await getPage(page, 20)
-    setPage(page + 1)
-    setContacts(contacts.concat(newContacts))
+    const page = await getPage(pageNum, 20)
+    setCanLoadMore(page.page * page.itemsPerPage < page.totalItems)
+    setPageNum(pageNum + 1)
+    setContacts(contacts.concat(page.contacts))
   }
 
   const deleteContact = async (contactToDelete: Contact) => {
@@ -72,7 +76,8 @@ export const ContactContextProvider = (props: Props) => {
 
   const contextValue: ContactContextType = {
     contacts,
-    lastPage: page,
+    lastPage: pageNum,
+    canLoadMore: canLoadMore,
     setContactState: setContacts,
     fetchMoreContacts,
     deleteContact,
