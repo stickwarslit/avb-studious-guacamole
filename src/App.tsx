@@ -47,10 +47,10 @@ function Body() {
   return (
     <>
       <div className="sidebar">
-        <h1>
-          Contacts
+        <div className="header">
+          <h1>Contacts</h1>
           <PlusButton onClick={onCreate} size="large" />
-        </h1>
+        </div>
         <ContactsList onClick={ ({id}) => setContactId(id) }/>
       </div>
       <div className="content">
