@@ -1,0 +1,33 @@
+.contact-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 11% 10% 1fr 5% 10%;
+
+  grid-template-areas:
+    "space space"
+    "firstName lastName"
+    "emails emails"
+    "message message"
+    "buttons buttons";
+
+  .first-name {
+    grid-area: firstName;
+  }
+
+  .last-name {
+    grid-area: lastName;
+  }
+
+  .emails {
+    grid-area: emails;
+  }
+
+  .message {
+    grid-area: message;
+  }
+
+  .buttons {
+    grid-area: buttons;
+  }
+
+}

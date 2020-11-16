@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Contact } from './data/contacts'
 import { useContact } from './context/Contact'
 import PlusButton from './PlusButton'
-
+import './ContactDisplay.scss'
 
 // Copied from https://ihateregex.io/expr/email/
 const EMAIL_REGEX = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
@@ -87,35 +87,50 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
 
   return (
     <article className="contact-display">
-      <label>First Name: </label>
-      <input type="text" value={firstName} onChange={handleFirstNameChange}/>
-      <label>Last Name: </label>
-      <input type="text" value={lastName} onChange={handleLastNameChange}/>
+      <div className="first-name">
+        <label>First Name: </label>
+        <input type="text" value={firstName} onChange={handleFirstNameChange}/>
+      </div>
 
-      <label>Emails</label>
-      <ul>
-        { emails.map(email => 
-          <li key={email}>
-            {email}
-            <button onClick={() => removeEmail(email)}>Remove</button>
+      <div className="last-name">
+        <label>Last Name: </label>
+        <input type="text" value={lastName} onChange={handleLastNameChange}/>
+      </div>
+
+      <div className="emails">
+        <label>Emails</label>
+        <ul>
+          { emails.map(email => 
+            <li key={email}>
+              {email}
+              <button onClick={() => removeEmail(email)}>Remove</button>
+            </li>
+          )}
+          <li>
+          { isAddingEmail
+              ? <>
+                  <label>New Email: </label> 
+                  <input 
+                    type="text" 
+                    value={newEmail} 
+                    onChange={handleNewEmailChange} 
+                  />
+                  <button onClick={completeNewEmail}>Complete</button>
+                </>
+              : <>
+                  <PlusButton onClick={() => setAddingEmail(true)} size="small" />
+                  <button onClick={() => setAddingEmail(true)}>
+                    add email
+                  </button>
+                </>
+          }
           </li>
-        )}
-        <li>
-        { isAddingEmail
-            ? <>
-                <label>New Email: </label> 
-                <input type="text" value={newEmail} onChange={handleNewEmailChange} />
-                <button onClick={completeNewEmail}>Complete</button>
-              </>
-            : <>
-                <PlusButton onClick={() => setAddingEmail(true)} size="small" />
-                <button onClick={() => setAddingEmail(true)}>
-                  add email
-                </button>
-              </>
-        }
-        </li>
-      </ul>
+        </ul>
+      </div>
+
+      <div className="message">
+        {message}
+      </div>
 
       <div className="buttons">
         <button onClick={handleDelete}>Delete</button>
@@ -123,9 +138,6 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
         <button onClick={handleSave}>Save</button>
       </div>
 
-      <div className="contact-message">
-        {message}
-      </div>
     
     </article>
   )
