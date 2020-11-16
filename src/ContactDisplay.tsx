@@ -102,13 +102,17 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
         <ul>
           { emails.map(email => 
             <li key={email}>
-              {email}
-              <button onClick={() => removeEmail(email)}>Remove</button>
+              <div>{email}</div>
+              <button 
+                className="remove" 
+                onClick={() => removeEmail(email)}
+              >
+                Remove
+              </button>
             </li>
           )}
-          <li>
           { isAddingEmail
-              ? <>
+              ? <li>
                   <label>New Email: </label> 
                   <input 
                     type="text" 
@@ -116,15 +120,12 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
                     onChange={handleNewEmailChange} 
                   />
                   <button onClick={completeNewEmail}>Complete</button>
-                </>
-              : <>
+                </li>
+              : <li onClick={() => setAddingEmail(true)} className="add-email">
                   <PlusButton onClick={() => setAddingEmail(true)} size="small" />
-                  <button onClick={() => setAddingEmail(true)}>
-                    add email
-                  </button>
-                </>
+                  <div>add email</div>
+                </li>
           }
-          </li>
         </ul>
       </div>
 

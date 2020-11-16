@@ -28,6 +28,40 @@
 
   .emails {
     grid-area: emails;
+    padding: 3%;
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        padding: 5px;
+
+        button.remove {
+          display: none;
+        }
+
+        &:hover button.remove {
+          display: inline;
+        }
+
+        &.add-email {
+          display: flex;
+          flex-direction: row;
+          color: #579AFF;
+
+          cursor: pointer; 
+
+          > div {
+            margin-left: 1%;
+            line-height: 25px;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
   }
 
   .message {
