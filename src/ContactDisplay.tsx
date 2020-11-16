@@ -134,9 +134,9 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
       </div>
 
       <div className="buttons">
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={refreshContactInfo}>Cancel</button>
-        <button onClick={handleSave}>Save</button>
+        <button className="delete" onClick={handleDelete}>Delete</button>
+        <button className="cancel" onClick={refreshContactInfo}>Cancel</button>
+        <button className="save" onClick={handleSave}>Save</button>
       </div>
 
     

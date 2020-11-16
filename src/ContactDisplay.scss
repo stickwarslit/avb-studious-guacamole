@@ -70,6 +70,35 @@
 
   .buttons {
     grid-area: buttons;
+
+    padding: 3%;
+
+    button {
+      background: none;
+      border: none;
+      width: 13%;
+      margin-left: 5%;
+      border-style: solid;
+      border-width: 1px;
+
+      line-height: 200%;
+
+      &.delete {
+        background: #FF5757;
+        border-color: #FF5757;
+        color: #FFFFFF;
+      }
+
+      &.cancel {
+        border-color: #579AFF;
+      }
+
+      &.save {
+        background: #579AFF;
+        border-color: #579AFF;
+        color: #FFFFFF;
+      }
+    }
   }
 
 }
