@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/avb-studious-guacamole/static/css/main.63b5891d.chunk.css",
+    "main.js": "/avb-studious-guacamole/static/js/main.76a86088.chunk.js",
+    "main.js.map": "/avb-studious-guacamole/static/js/main.76a86088.chunk.js.map",
+    "runtime-main.js": "/avb-studious-guacamole/static/js/runtime-main.8a1da223.js",
+    "runtime-main.js.map": "/avb-studious-guacamole/static/js/runtime-main.8a1da223.js.map",
+    "static/js/2.bcf23e41.chunk.js": "/avb-studious-guacamole/static/js/2.bcf23e41.chunk.js",
+    "static/js/2.bcf23e41.chunk.js.map": "/avb-studious-guacamole/static/js/2.bcf23e41.chunk.js.map",
+    "static/js/3.ff965ca1.chunk.js": "/avb-studious-guacamole/static/js/3.ff965ca1.chunk.js",
+    "static/js/3.ff965ca1.chunk.js.map": "/avb-studious-guacamole/static/js/3.ff965ca1.chunk.js.map",
+    "index.html": "/avb-studious-guacamole/index.html",
+    "static/css/main.63b5891d.chunk.css.map": "/avb-studious-guacamole/static/css/main.63b5891d.chunk.css.map",
+    "static/js/2.bcf23e41.chunk.js.LICENSE.txt": "/avb-studious-guacamole/static/js/2.bcf23e41.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/avb-studious-guacamole/static/media/lato-medium.a071abba.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8a1da223.js",
+    "static/js/2.bcf23e41.chunk.js",
+    "static/css/main.63b5891d.chunk.css",
+    "static/js/main.76a86088.chunk.js"
+  ]
+}
