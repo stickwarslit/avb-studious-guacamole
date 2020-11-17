@@ -24,11 +24,17 @@ $lato-font-path: '../../fonts';
 
   .sidebar {
     grid-area: sidebar;
+    display: grid;
+
+    grid-template:
+      "header" 1fr
+      "contacts" 8fr;
     background: #F8FAFF;
 
     height: 100vh;
 
     .header {
+      grid-area: header;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -48,6 +54,10 @@ $lato-font-path: '../../fonts';
 
         font-size: 200%;
       }
+    }
+
+    .contacts-list {
+      grid-area: contacts;
     }
   }
 
