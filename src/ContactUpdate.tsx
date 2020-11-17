@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Contact } from './data/contacts'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, useLocation } from 'react-router-dom'
 import { useContact } from './context/Contact'
 import ContactDisplay from './ContactDisplay'
 
@@ -12,8 +12,10 @@ export default function ContactUpdate() {
   const { getOrFetchContact } = useContact()
   const history = useHistory()
   const params = useParams<Params>()
+  const location = useLocation<{isNew?: boolean}>()
 
   const [contact, setContact] = useState<Contact | null>(null)
+  const [isNew, setIsNew] = useState(false)
 
   useEffect(() => {
     const getContact = async () => {
@@ -25,6 +27,11 @@ export default function ContactUpdate() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params])
+
+  useEffect(() => {
+    setIsNew(!!location.state.isNew)
+
+  }, [location])
 
   const onCancel = () => history.push('')
 
@@ -38,6 +45,7 @@ export default function ContactUpdate() {
               onSave={() => {}}
               onCancel={onCancel}
               onDelete={onCancel}
+              isNew={isNew}
             />
       }
     </>

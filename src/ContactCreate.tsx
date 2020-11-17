@@ -13,7 +13,9 @@ export default function ContactCreate() {
     emails: []
   }
 
-  const onSave = (contact: Contact) => history.push(`/${contact.id}`)
+  const onSave = 
+    (contact: Contact) => history.push(`/${contact.id}`, { isNew: true })
+
   const onCancel = () => history.push('')
 
   return (

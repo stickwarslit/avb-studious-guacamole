@@ -17,9 +17,11 @@ interface Props {
   onDelete: (contact: Contact) => void
   onCancel: (contact: Contact) => void
   onSave: (contact: Contact) => void
+  isNew?: boolean
 }
 
-export default function ContactsDisplay({contact, onDelete, onCancel, onSave}: Props) {
+export default function ContactsDisplay(props: Props) {
+  const {contact, onDelete, onCancel, onSave, isNew} = props
   const { upsertContact, deleteContact } = useContact()
 
   const [firstName, setFirstName] = useState(contact.firstName)
@@ -42,6 +44,8 @@ export default function ContactsDisplay({contact, onDelete, onCancel, onSave}: P
 
   // Change contact display info when contact changes
   useEffect(refreshContactInfo, [contact])
+
+  useEffect(() => {isNew && setMessage("Contact Created!")}, [isNew])
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)
