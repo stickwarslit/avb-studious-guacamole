@@ -5,6 +5,7 @@ import { ContactContextProvider, useContact } from './context/Contact'
 import ContactsList from './ContactsList'
 import ContactDisplay from './ContactDisplay'
 import PlusButton from './PlusButton'
+import WelcomeView from './WelcomeView'
 
 function App() {
   return (
@@ -65,7 +66,7 @@ function Body() {
                 onSave={({id}) => setContactId(id)}
                 onCancel={() => setContactId(null)}
               />
-            : <div>Select contact on left</div>
+            : <WelcomeView />
         }
       </div>
     </>

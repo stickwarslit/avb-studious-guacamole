@@ -1,0 +1,25 @@
+.welcome-view {
+  display: grid;
+  grid-template-rows: 1fr 2fr 6fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: 
+    ". . ."
+    ". title ."
+    ". text ."
+    ". . .";
+
+  height: 100%;
+
+  h1 {
+    grid-area: title;
+    font-size: 300%;
+  }
+
+  span {
+    grid-area: text;
+
+    > * {
+      margin-bottom: 5%;
+    }
+  }
+}

@@ -12,6 +12,10 @@ $lato-font-path: '../../fonts';
   font-size: 20px;
   font-style: bold;
 }
+
+h1 {
+  @include lato-font('medium');
+}
 #root {
   display: grid;
   height: 100%;
