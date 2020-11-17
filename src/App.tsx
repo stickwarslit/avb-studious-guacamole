@@ -62,6 +62,8 @@ function Body() {
             ? <ContactDisplay 
                 contact={contact} 
                 onDelete={() => setContactId(null)}
+                onSave={({id}) => setContactId(id)}
+                onCancel={() => setContactId(null)}
               />
             : <div>Select contact on left</div>
         }

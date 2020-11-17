@@ -14,7 +14,14 @@ export type ContactContextType = {
   setContactState: (contacts: Contact[]) => void,
   fetchMoreContacts: () => Promise<void>,
   deleteContact: (contact: Contact) => Promise<void>,
-  upsertContact: (contact: Contact) => Promise<void>
+  upsertContact: (contact: Contact) => Promise<Contact>
+}
+
+const blankContact: Contact = {
+  id: NaN,
+  firstName: "",
+  lastName: "",
+  emails: []
 }
 
 const contextDefault: ContactContextType = {
@@ -24,7 +31,7 @@ const contextDefault: ContactContextType = {
   setContactState: () => {},
   fetchMoreContacts: async () => {},
   deleteContact: async () => {},
-  upsertContact: async () => {}
+  upsertContact: async () => {return blankContact}
 }
 
 export const ContactContext = createContext<ContactContextType>(contextDefault)
@@ -64,13 +71,15 @@ export const ContactContextProvider = (props: Props) => {
   const createContact = async (contact: Contact) => {
     const responseContact = await createRequest(contact)
     setContacts(contacts.concat(responseContact))
+    return responseContact
   }
 
-  const upsertContact = async (contact: Contact) => {
+  const upsertContact = async (contact: Contact): Promise<Contact> => {
     if (isNaN(contact.id)) {
-      await createContact(contact)
+      return await createContact(contact)
     } else {
       await updateContact(contact)
+      return contact
     }
   }
 

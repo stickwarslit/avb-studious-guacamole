@@ -15,9 +15,11 @@ const isValidEmail = (email: string): boolean => {
 interface Props {
   contact: Contact
   onDelete: (contact: Contact) => void
+  onCancel: () => void
+  onSave: (contact: Contact) => void
 }
 
-export default function ContactsDisplay({contact, onDelete}: Props) {
+export default function ContactsDisplay({contact, onDelete, onCancel, onSave}: Props) {
   const { upsertContact, deleteContact } = useContact()
 
   const [firstName, setFirstName] = useState(contact.firstName)
@@ -71,21 +73,27 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
       return
     }
 
-    const updatedContact: Contact = {
+    let updatedContact: Contact = {
       ...contact,
       firstName,
       lastName,
       emails
     }
 
-    await upsertContact(updatedContact)
+    updatedContact = await upsertContact(updatedContact)
 
     setMessage("Saved Successfully")
+    onSave(updatedContact)
   }
 
   const handleDelete = async () => {
     await deleteContact(contact)
     onDelete(contact)
+  }
+
+  const handleCancel = () => {
+    refreshContactInfo()
+    onCancel()
   }
 
   return (
@@ -136,7 +144,7 @@ export default function ContactsDisplay({contact, onDelete}: Props) {
 
       <div className="buttons">
         <button className="delete" onClick={handleDelete}>Delete</button>
-        <button className="cancel" onClick={refreshContactInfo}>Cancel</button>
+        <button className="cancel" onClick={handleCancel}>Cancel</button>
         <button className="save" onClick={handleSave}>Save</button>
       </div>
 
