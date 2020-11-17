@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { 
+  BrowserRouter, 
+  Switch, 
+  Route,
+  useHistory
+} from 'react-router-dom'
 import './App.scss'
-import { Contact } from './data/contacts'
 import { ContactContextProvider, useContact } from './context/Contact'
 import ContactsList from './ContactsList'
-import ContactDisplay from './ContactDisplay'
 import PlusButton from './PlusButton'
 import WelcomeView from './WelcomeView'
+import ContactCreate from './ContactCreate'
+import ContactUpdate from './ContactUpdate'
 
 function App() {
   return (
+    <BrowserRouter>
     <ContactContextProvider><Body/></ContactContextProvider>
+    </BrowserRouter>
   )
 }
 
 function Body() {
-  const {contacts, fetchMoreContacts} = useContact()
+  const {fetchMoreContacts} = useContact()
 
-  const [contactId, setContactId] = useState<number | null>(null)
-  const [contact, setContact] = useState<Contact | null>(null)
+  const history = useHistory()
 
   // Fetch first page of contacts on page load
   useEffect(() => {
@@ -25,49 +32,29 @@ function Body() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    const result = contacts.find(({id}) => id === contactId)
-    if (result !== undefined) {
-      setContact(result)
-    } else {
-      setContact(null)
-    }
-  }, [contacts, contactId])
-
-  const onCreate = () => {
-    const newContact = {
-      id: NaN,
-      firstName: "",
-      lastName: "",
-      emails: []
-    }
-
-    setContact(newContact)
-  }
-
   return (
     <>
       <div className="sidebar">
         <div className="header">
           <h1>Contacts</h1>
-          <PlusButton onClick={onCreate} size="large" />
+          <PlusButton onClick={() => history.push('/new')} size="large" />
         </div>
-        <ContactsList 
-          onClick={ ({id}) => setContactId(id) } 
-          selectedContactId={contactId}
-        />
+        <ContactsList onClick={({id}) => history.push(`/${id}`)}/>
       </div>
       <div className="content">
-        {
-          contact
-            ? <ContactDisplay 
-                contact={contact} 
-                onDelete={() => setContactId(null)}
-                onSave={({id}) => setContactId(id)}
-                onCancel={() => setContactId(null)}
-              />
-            : <WelcomeView />
-        }
+        <Switch>
+          <Route path="/new">
+            <ContactCreate />
+          </Route>
+
+          <Route path="/:contactId">
+            <ContactUpdate />
+          </Route>
+
+          <Route path="/">
+            <WelcomeView />
+          </Route>
+        </Switch>
       </div>
     </>
   )

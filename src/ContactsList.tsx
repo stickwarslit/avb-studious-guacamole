@@ -1,15 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouteMatch } from 'react-router-dom'
 import { useContact } from './context/Contact'
 import './ContactsList.scss'
 import { Contact } from './data/contacts'
 
 interface Props {
   onClick: (contact: Contact) => any
-  selectedContactId: number | null
 }
 
-export default function ContactsList({ onClick, selectedContactId }:Props) {
+interface Params {
+  contactId?: string
+}
+
+export default function ContactsList({ onClick }:Props) {
   const { contacts, fetchMoreContacts, canLoadMore } = useContact()
+  const match = useRouteMatch<Params>('/:contactId')
+
+  const [selectedContactId, setSelectedContactId] = useState(NaN)
+
+  useEffect(() => {
+    if (match !== null && match.params.contactId !== undefined) {
+      setSelectedContactId(parseInt(match.params.contactId, 10))
+    }
+  }, [match])
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -46,6 +59,5 @@ export default function ContactsList({ onClick, selectedContactId }:Props) {
       {listItems}
       {loadButton}
     </ul>
-
   )
 }

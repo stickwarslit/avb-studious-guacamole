@@ -4,7 +4,8 @@ import {
   getPage, 
   create as createRequest,
   update as updateRequest,
-  del as deleteRequest
+  del as deleteRequest,
+  getOne as getOneRequest
 } from '../data/contacts'
 
 export type ContactContextType = {
@@ -14,7 +15,8 @@ export type ContactContextType = {
   setContactState: (contacts: Contact[]) => void,
   fetchMoreContacts: () => Promise<void>,
   deleteContact: (contact: Contact) => Promise<void>,
-  upsertContact: (contact: Contact) => Promise<Contact>
+  upsertContact: (contact: Contact) => Promise<Contact>,
+  getOrFetchContact: (contactId: number) => Promise<Contact>
 }
 
 const blankContact: Contact = {
@@ -31,7 +33,8 @@ const contextDefault: ContactContextType = {
   setContactState: () => {},
   fetchMoreContacts: async () => {},
   deleteContact: async () => {},
-  upsertContact: async () => {return blankContact}
+  upsertContact: async () => {return blankContact},
+  getOrFetchContact: async () => {return blankContact}
 }
 
 export const ContactContext = createContext<ContactContextType>(contextDefault)
@@ -83,6 +86,15 @@ export const ContactContextProvider = (props: Props) => {
     }
   }
 
+  const getOrFetchContact = async (contactId: number) => {
+    const localContact = contacts.find(({id}) => contactId === id)
+    if (localContact !== undefined) {
+      return localContact
+    }
+
+    return await getOneRequest(contactId)
+  }
+
   const contextValue: ContactContextType = {
     contacts,
     lastPage: pageNum,
@@ -90,7 +102,8 @@ export const ContactContextProvider = (props: Props) => {
     setContactState: setContacts,
     fetchMoreContacts,
     deleteContact,
-    upsertContact
+    upsertContact,
+    getOrFetchContact
   }
 
   return (

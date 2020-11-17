@@ -15,7 +15,7 @@ const isValidEmail = (email: string): boolean => {
 interface Props {
   contact: Contact
   onDelete: (contact: Contact) => void
-  onCancel: () => void
+  onCancel: (contact: Contact) => void
   onSave: (contact: Contact) => void
 }
 
@@ -87,13 +87,13 @@ export default function ContactsDisplay({contact, onDelete, onCancel, onSave}: P
   }
 
   const handleDelete = async () => {
-    await deleteContact(contact)
     onDelete(contact)
+    await deleteContact(contact)
   }
 
   const handleCancel = () => {
     refreshContactInfo()
-    onCancel()
+    onCancel(contact)
   }
 
   return (

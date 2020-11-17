@@ -27,6 +27,17 @@ export const getPage = async (pageNum = 1, pageSize = 20): Promise<Page> => {
   return body as Page
 }
 
+export const getOne = async (contactId: number): Promise<Contact> => {
+  const url = `${BASE_URL}/contacts/${contactId}`
+  const response = await fetch(url)
+
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+
+  return await response.json() as Contact
+}
+
 export const update = async (contact: Contact): Promise<void> => {
   const url = `${BASE_URL}/contacts/${contact.id}`
 
