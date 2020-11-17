@@ -34,6 +34,9 @@ $lato-font-path: '../../fonts';
       justify-content: space-between;
       align-items: center;
 
+      padding-left: 7.5%;
+      padding-right: 7.5%;
+
       > * {
         margin-right: 5px;
       }
@@ -45,11 +48,6 @@ $lato-font-path: '../../fonts';
 
         font-size: 200%;
       }
-    }
-
-    > * {
-      padding-left: 7.5%;
-      padding-right: 7.5%;
     }
   }
 

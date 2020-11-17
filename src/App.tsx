@@ -51,7 +51,10 @@ function Body() {
           <h1>Contacts</h1>
           <PlusButton onClick={onCreate} size="large" />
         </div>
-        <ContactsList onClick={ ({id}) => setContactId(id) }/>
+        <ContactsList 
+          onClick={ ({id}) => setContactId(id) } 
+          selectedContactId={contactId}
+        />
       </div>
       <div className="content">
         {

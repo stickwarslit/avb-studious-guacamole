@@ -5,5 +5,18 @@
   > li {
     padding-top: 5%;
     padding-bottom: 5%;
+
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    &.selected {
+      background: #579AFF;
+      color: #FFFFFF;
+    }
   }
 }
