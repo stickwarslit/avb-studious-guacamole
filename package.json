@@ -2,6 +2,7 @@
   "name": "avb-studious-guacamole",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://stickwarslit.github.io/avb-studious-guacamole",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -11,6 +12,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "fetch": "^1.1.0",
+    "gh-pages": "^3.1.0",
     "lato-font": "^3.0.0",
     "node-sass": "4.14",
     "react": "^17.0.1",
@@ -23,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -b gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
