@@ -29,7 +29,8 @@ export default function ContactUpdate() {
   }, [params])
 
   useEffect(() => {
-    setIsNew(!!location.state.isNew)
+    const state = location.state
+    setIsNew(!!(state && state.isNew))
 
   }, [location])
 
