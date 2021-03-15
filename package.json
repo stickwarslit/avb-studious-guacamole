@@ -2,7 +2,7 @@
   "name": "avb-studious-guacamole",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
+  "homepage": "https://avb-sick-diagram.herokuapp.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -20,6 +20,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "serve": "^11.3.2",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
   },
