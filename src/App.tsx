@@ -15,7 +15,7 @@ import ContactUpdate from './ContactUpdate'
 
 function App() {
   return (
-    <BrowserRouter basename="/avb-studious-guacamole">
+    <BrowserRouter>
       <ContactContextProvider>
         <Body/>
       </ContactContextProvider>
